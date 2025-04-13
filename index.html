@@ -2190,6 +2190,25 @@
         updateUI();
         return false;
       }
+
+      function sendPasswordReset() {
+        if (!auth) {
+          alert('Authentication service not available. Please try again later.');
+          return false;
+        }
+        
+        const email = document.getElementById('login-email').value || prompt('Please enter your email address:');
+        if (!email) return false;
+        
+        auth.sendPasswordResetEmail(email)
+          .then(() => {
+            alert(`Password reset link sent to ${email}. Please check your inbox.`);
+          })
+          .catch(error => {
+            alert(`Error: ${error.message}`);
+          });
+        return false;
+      }
     </script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
