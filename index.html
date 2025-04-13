@@ -2106,81 +2106,56 @@
 
       // Login functions
       function loginWithGoogle() {
-        alert('Google login will be implemented');
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+          .then((result) => {
+            // User signed in
+            currentUser = {
+              email: result.user.email,
+              name: result.user.displayName,
+              uid: result.user.uid
+            };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUI();
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
       }
 
       function loginWithFacebook() {
-        alert('Facebook login will be implemented');
-      }
-
-      function loginWithEmail() {
-        alert('Email login will be implemented');
-      }
-
-      function hideShopSection() {
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        if (!user) {
-          // Return to login if not authenticated
-          document.querySelector('.shop-section').style.display = 'none';
-          document.querySelector('.login-section').style.display = 'flex';
-        } else {
-          // Show full content if authenticated
-          document.querySelector('.shop-section').style.display = 'none';
-          document.querySelector('.login-section').style.display = 'none';
-        }
-        shouldHideHeader = false;
-        showHeader();
-        document.body.style.overflow = 'auto';
-        document.querySelector('.header').classList.remove('hidden');
-        document.querySelector('.main-nav').classList.remove('fixed');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      // Initialize content
-      updateContent('en');
-
-      // Enhanced Auth System with Cart
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-      let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-
-      function loadUserCart() {
-        if (currentUser) {
-          const userCart = currentUser.cart || [];
-          localStorage.setItem('cart', JSON.stringify(userCart));
-          updateCartCount();
-        }
-      }
-
-      function saveUserCart() {
-        if (currentUser) {
-          const cart = JSON.parse(localStorage.getItem('cart')) || [];
-          currentUser.cart = cart;
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          
-          // Update in users array
-          const userIndex = users.findIndex(u => u.email === currentUser.email);
-          if (userIndex !== -1) {
-            users[userIndex] = currentUser;
-            localStorage.setItem('users', JSON.stringify(users));
-          }
-        }
+        const provider = new firebase.auth.FacebookAuthProvider();
+        auth.signInWithPopup(provider)
+          .then((result) => {
+            currentUser = {
+              email: result.user.email,
+              name: result.user.displayName,
+              uid: result.user.uid
+            };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUI();
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
       }
 
       function loginWithEmail() {
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
         
-        const user = users.find(u => u.email === email && u.password === password);
-        
-        if (user) {
-          currentUser = user;
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          loadUserCart();
-          updateUI();
-        } else {
-          alert('Invalid credentials');
-        }
-        return false;
+        auth.signInWithEmailAndPassword(email, password)
+          .then((result) => {
+            currentUser = {
+              email: result.user.email,
+              uid: result.user.uid
+            };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUI();
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
       }
 
       function createAccount() {
@@ -2212,6 +2187,25 @@
         updateUI();
         return false;
       }
+    </script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <script>
+      // Your Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyBvjBiOYzghRw6q06CYpyUjV75hb4ORJL0",
+        authDomain: "giftsbynisrine.firebaseapp.com",
+        projectId: "giftsbynisrine",
+        storageBucket: "giftsbynisrine.appspot.com",
+        messagingSenderId: "87201537223",
+        appId: "1:87201537223:web:d0e4eda5ad95519b5372e2"
+      };
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
     </script>
   </body>
 </html>
