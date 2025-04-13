@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="icon" type="image/png" sizes="512x512" href="https://i.postimg.cc/kXz1f9Tx/IMG-20250408-WA0081-1.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/kXz1f9Tx/IMG-20250408-WA0081-1.jpg">
+
     <style>
       /* Modern Reset */
       * {
@@ -48,18 +49,7 @@
         z-index: 1;
       }
 
-      .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('https://i.postimg.cc/kXz1f9Tx/IMG-20250408-WA0081-1.jpg') center/cover;
-        opacity: 0.05;
-        z-index: 1;
-        filter: blur(10px);
-      }
+
 
       .hero-content {
         position: relative;
@@ -83,16 +73,27 @@
         border: 3px solid #ff6b6b;
       }
 
-      .hero-logo:hover {
-        transform: scale(1.05);
-        border-color: #ff8e8e;
+      @media (max-width: 768px) {
+        .hero-logo {
+          width: 150px;
+          height: 150px;
+        }
       }
+
+      @media (max-width: 480px) {
+        .hero-logo {
+          width: 120px;
+          height: 120px;
+        }
+      }
+
+      
 
       .hero-title {
         font-size: 3.5rem;
         font-weight: 700;
         margin-bottom: 1.5rem;
-        color: #222;
+        color: #ffffff;
         line-height: 1.2;
         background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
         -webkit-background-clip: text;
@@ -349,7 +350,7 @@
         position: relative;
         z-index: 1;
       }
-      
+
       .footer-content {
         display: flex;
         justify-content: space-between;
@@ -389,13 +390,13 @@
         margin: 0 auto;
         padding: 0 20px;
       }
-      
+
       .footer-col {
         display: flex;
         flex-direction: column;
         gap: 2rem;
       }
-      
+
       .footer-col h3 {
         color: #fff;
         margin-bottom: 1.5rem;
@@ -404,14 +405,14 @@
         text-transform: uppercase;
         letter-spacing: 1px;
       }
-      
+
       .contact-info,
       .social-links {
         display: flex;
         flex-direction: column;
         gap: 1.2rem;
       }
-      
+
       .contact-info a,
       .social-links a {
         color: rgba(255,255,255,0.9);
@@ -423,20 +424,20 @@
         padding: 0.5rem 0;
         border-radius: 4px;
       }
-      
+
       .contact-info a:hover,
       .social-links a:hover {
         color: #fff;
         background: rgba(255,255,255,0.1);
         transform: translateX(5px);
       }
-      
+
       .contact-icon {
         font-size: 1.2rem;
         color: rgba(255,255,255,0.8);
         transition: color 0.3s ease;
       }
-      
+
       .contact-info i {
         color: #ff6b6b;
         margin-right: 0.5rem;
@@ -475,45 +476,45 @@
         text-align: center;
         border-top: 1px solid rgba(255,255,255,0.1);
       }
-      
+
       .footer-hr {
         border: none;
         border-top: 1px solid rgba(255,255,255,0.1);
         margin: 2rem 0;
       }
-      
+
       .copyright {
         color: rgba(255,255,255,0.7);
         font-size: 0.9rem;
       }
-      
+
       .copyright a {
         color: rgba(255,255,255,0.8);
         text-decoration: none;
         transition: color 0.3s ease;
       }
-      
+
       .copyright a:hover {
         color: #fff;
       }
-      
+
       .copyright i {
         color: #fff;
         margin-right: 0.5rem;
       }
-      
+
       @media (max-width: 768px) {
         .footer-row {
           grid-template-columns: 1fr;
           text-align: center;
           gap: 3rem;
         }
-        
+
         .contact-info,
         .social-links {
           justify-content: center;
         }
-        
+
         .contact-info a,
         .social-links a {
           justify-content: center;
@@ -722,7 +723,7 @@
         box-shadow: 0 10px 20px rgba(255,107,107,0.3);
         animation: pulse 1.5s infinite;
       }
-      
+
       @keyframes pulse {
         0% { transform: translateY(-3px); }
         50% { transform: translateY(-5px); }
@@ -809,21 +810,21 @@
         document.body.appendChild(lightbox);
 
         const productImages = document.querySelectorAll('.product-image');
-        
+
         productImages.forEach(img => {
           img.addEventListener('click', function() {
             lightbox.style.display = 'flex';
-            
+
             const lightboxContent = document.createElement('div');
             lightboxContent.className = 'lightbox-content';
-            
+
             const lightboxImg = document.createElement('img');
             lightboxImg.src = this.src;
-            
+
             const closeBtn = document.createElement('div');
             closeBtn.className = 'lightbox-close';
             closeBtn.innerHTML = '&times;';
-            
+
             lightboxContent.appendChild(lightboxImg);
             lightbox.appendChild(lightboxContent);
             lightbox.appendChild(closeBtn);
@@ -854,7 +855,7 @@
     </script>
   </head>
   <body>
-    
+
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
@@ -863,9 +864,10 @@
                srcset="https://i.postimg.cc/kXz1f9Tx/IMG-20250408-WA0081-1.jpg 2x"
                alt="Gifts by Nisrine Logo"
                class="hero-logo"
-               loading="lazy">
+               loading="lazy"
+               decoding="async">
           <h1 class="hero-title">Gifts by Nisrine</h1>
-          <p class="hero-subtitle">This website is just a virtual showroom. <br> In order to place an order, <a href="#footer" class="contact-link">contact us.</a></p>
+          <p class="hero-subtitle">This website is just a virtual showroom. <br> To place an order, <a href="#footer" class="contact-link">contact us.</a></p>
         </div>
       </div>
     </section>
@@ -879,7 +881,7 @@
               <h3 class="product-title">Special Gift Box</h3>
               <p class="product-price">$18</p>
               <p class="product-description">A luxurious gift box featuring Ferrero Rocher chocolates, wrapped in elegant yellow flowers and gold accents.</p>
-              
+
             </div>
           </div>
           <div class="product-card">
@@ -933,7 +935,7 @@
         </div>
       </div>
     </section>
-   
+
     <!-- Footer -->
     <footer class="footer" id="footer">
       <div class="container">
@@ -976,7 +978,7 @@
         </div>
 
         <div class="delivery-note">
-          
+
           <h3><b><font color="red">We deliver to all Lebanon cities. <br>Our delivery fee ranges from $3 to $5.</font></h3></b></h3>
         </div>
 
