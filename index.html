@@ -1645,6 +1645,9 @@
             <div class="email-login">
               <input type="email" id="login-email" placeholder="Email address" required>
               <input type="password" id="login-password" placeholder="Password" required>
+              <p class="forgot-password">
+                <a href="#" onclick="event.preventDefault(); sendPasswordReset();">Forgot password?</a>
+              </p>
             </div>
             
             <button class="login-btn email-submit" onclick="loginWithEmail()">
@@ -2204,8 +2207,24 @@
       };
       
       // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
+      if (typeof firebase === 'undefined') {
+        console.error('Firebase SDK not loaded');
+      } else {
+        try {
+          const app = firebase.initializeApp(firebaseConfig);
+          console.log('Firebase initialized successfully');
+          const auth = firebase.auth();
+          
+          // Verify auth is available
+          if (auth) {
+            console.log('Firebase Auth is ready');
+          } else {
+            console.error('Firebase Auth not available');
+          }
+        } catch (error) {
+          console.error('Firebase initialization error:', error);
+        }
+      }
     </script>
   </body>
 </html>
