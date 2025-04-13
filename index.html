@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gifts By Nisrine | With Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+      /* Modern Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        margin-top: 0;
+        position: relative;
+      }
+
+      /* Language Switcher */
+      .language-switcher {
+        position: relative;
+        cursor: pointer;
+        padding: 12px 16px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+      }
+
+      .language-switcher:hover {
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      }
+
+      .language-switcher i {
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .language-switcher:hover i {
+        transform: rotate(180deg);
+      }
+
+      /* Arabic RTL Support */
+      [dir="rtl"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      [dir="rtl"] .language-switcher {
+        right: auto;
+        left: 20px;
+      }
+
+      [dir="rtl"] .language-switcher i {
+        margin-left: 0;
+        margin-right: 10px;
+      }
+
+      .language-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        overflow: hidden;
+        z-index: 1000;
+        display: none;
+      }
+
+      .language-menu.show {
+        display: block;
+      }
+
+      .language-item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .language-item:hover {
+        background: #f8f9fa;
+      }
+
+      /* Header Styles */
+      .header {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/IMG-20250408-WA0081-1.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        transition: opacity 0.3s ease;
+      }
+
+      .header.hidden {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: -100vh;
+      }
+
+      .header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .header p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .header .cta-button {
+        padding: 1rem 2rem;
+        background: #ff6b6b;
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        margin-top: 2rem;
+      }
+
+      .header .cta-button:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      }
+
+      /* Navigation */
+      .main-nav {
+        background-color: #fff;
+        padding: 1rem 0;
+        position: relative;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        display: none !important;
+      }
+
+      .main-nav.fixed {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .main-nav .menu-btn {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 1000;
+      }
+
+      .main-nav .menu-btn i {
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .main-nav .nav-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 0 20px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+      }
+
+      .main-nav .nav-links ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      .main-nav .nav-links ul li {
+        position: relative;
+      }
+
+      .main-nav .nav-links ul li a {
+        text-decoration: none;
+        color: #333;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .main-nav .nav-links ul li a:hover {
+        color: #ff6b6b;
+      }
+
+      .main-nav .nav-links ul li a i {
+        color: #ff6b6b;
+      }
+
+      .main-nav .nav-icons {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background-color: #fff;
+        padding: 0 1rem;
+      }
+
+      .main-nav .nav-icons a {
+        color: #333;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .main-nav .nav-icons a:hover {
+        color: #ff6b6b;
+      }
+
+      .main-nav .nav-icons .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #ff6b6b;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        min-width: 18px;
+        text-align: center;
+      }
+
+      /* Featured Categories */
+      .featured-categories {
+        padding: 5rem 0;
+        background: #fff;
+      }
+
+      .featured-categories .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .featured-categories h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .featured-categories h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+      }
+
+      .category-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+      }
+
+      .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      }
+
+      .category-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .category-card:hover .category-image {
+        transform: scale(1.05);
+      }
+
+      .category-content {
+        padding: 2rem;
+      }
+
+      .category-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .category-content p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .category-btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .category-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      }
+
+      /* Featured Products */
+      .featured-products {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+
+      .featured-products .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .featured-products h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .featured-products h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .product-content {
+        padding: 1.5rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .product-content .product-name {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .product-content .product-price {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #ff6b6b;
+        margin-bottom: 1.5rem;
+      }
+
+      .product-content .add-to-cart {
+        padding: 0.5rem 1rem;
+        background: #ff6b6b;
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        font-size: 0.8rem;
+        width: 80%;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      .product-content .add-to-cart:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      }
+
+      .product-content .add-to-cart:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      /* Footer */
+      .footer {
+        background: #333;
+        color: white;
+        padding: 4rem 0 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .footer-col h3 {
+        color: white;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+      }
+
+      .footer-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .footer-contact a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-contact a:hover {
+        color: #ff6b6b;
+      }
+
+      .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .social-links a:hover {
+        color: #ff6b6b;
+      }
+
+      .footer-hr {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 2rem 0;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+      }
+
+      .copyright {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+      }
+
+      .copyright a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .copyright a:hover {
+        color: #ff6b6b;
+      }
+
+      .copyright i {
+        color: #ff6b6b;
+        margin-right: 0.5rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .header h1 {
+          font-size: 3.5rem;
+        }
+
+        .main-nav {
+          padding: 1.2rem 0;
+        }
+
+        .nav-links ul {
+          gap: 30px;
+        }
+
+        .nav-links ul li a {
+          font-size: 1rem;
+        }
+
+        .category-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .product-grid {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2.5rem;
+        }
+
+        .header p {
+          font-size: 1.2rem;
+          margin-bottom: 2rem;
+        }
+
+        .main-nav {
+          padding: 1rem 0;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          padding: 20px 0;
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links li {
+          width: 100%;
+          text-align: center;
+          margin: 10px 0;
+        }
+
+        .nav-links a {
+          padding: 10px 20px;
+          width: 100%;
+        }
+
+        .nav-links a:hover {
+          background: #f0f0f0;
+        }
+
+        .category-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-row {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .footer-col {
+          margin-bottom: 2rem;
+        }
+
+        .footer-bottom {
+          margin-top: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .btn {
+          padding: 1rem 2rem;
+          font-size: 1rem;
+        }
+
+        .category-content {
+          padding: 1.5rem;
+        }
+
+        .product-content {
+          padding: 1.5rem;
+        }
+      }
+
+      /* Arabic RTL Adjustments */
+      [dir="rtl"] .nav-links ul {
+        gap: 30px;
+      }
+
+      [dir="rtl"] .nav-links ul li a {
+        padding: 0.7rem 1rem;
+      }
+
+      [dir="rtl"] .nav-links ul li a::after {
+        left: 0;
+      }
+
+      [dir="rtl"] .nav-icons {
+        gap: 20px;
+      }
+
+      [dir="rtl"] .cart-icon {
+        font-size: 1.6rem;
+      }
+
+      [dir="rtl"] .cart-count {
+        top: -10px;
+        right: auto;
+        left: -10px;
+      }
+
+      /* Cart Modal Styles */
+      .cart-modal {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background: white;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 2rem;
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+        transform: translateX(0);
+      }
+
+      .cart-modal.hidden {
+        transform: translateX(100%);
+      }
+
+      .cart-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cart-content h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      #cartItems {
+        flex: 1;
+        margin-bottom: 1rem;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+
+      .cart-item-info {
+        flex: 1;
+      }
+
+      .cart-item-price {
+        font-weight: bold;
+        color: #ff6b6b;
+      }
+
+      .cart-item-quantity {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .cart-item-quantity button {
+        background: none;
+        border: 1px solid #ddd;
+        padding: 0.25rem;
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+      }
+
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        margin-bottom: 1rem;
+      }
+
+      .cart-actions {
+        display: flex;
+        gap: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+      }
+
+      .cart-actions button {
+        flex: 1;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      #checkoutBtn {
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+      }
+
+      #checkoutBtn:hover {
+        background: linear-gradient(45deg, #ff5252, #ff7a7a);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+      }
+
+      #checkoutBtn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+      }
+
+      #clearCartBtn {
+        background: #ddd;
+        color: #333;
+      }
+
+      #clearCartBtn:hover {
+        background: #c7c7c7;
+        transform: translateY(-1px);
+      }
+
+      /* Checkout Button Loading State */
+      #checkoutBtn.loading {
+        background: #ff6b6b;
+        cursor: not-allowed;
+      }
+
+      #checkoutBtn.loading::after {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-left: 10px;
+        border: 2px solid white;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Icons Styles */
+      .icon {
+        margin-right: 0.5rem;
+        color: #ff6b6b;
+      }
+
+      /* Social Media Icon Colors */
+      .facebook-icon {
+        color: #1877F2;
+      }
+
+      .instagram-icon {
+        color: #E1306C;
+      }
+
+      .tiktok-icon {
+        color: #000000;
+      }
+
+      /* Social Media Icons Styles */
+      .social-icon {
+        color: #333;
+        font-size: 1.5rem;
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
+      .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        color: #333;
+        text-decoration: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        background: #f8f9fa;
+      }
+
+      /* Social Media Icon Colors */
+      .facebook-icon {
+        color: #1877F2;
+      }
+
+      .instagram-icon {
+        color: #E1306C;
+      }
+
+      .tiktok-icon {
+        color: #000000;
+      }
+
+      /* RTL Adjustments for social icons */
+      [dir="rtl"] .social-icon {
+        margin-right: 0;
+        margin-left: 0.5rem;
+      }
+
+      [dir="rtl"] .social-links a {
+        justify-content: flex-end;
+      }
+
+      /* Contact Info Styles */
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .contact-info a {
+        display: flex;
+        align-items: center;
+        color: #333;
+        text-decoration: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        background: #f8f9fa;
+      }
+
+      .contact-icon {
+        color: #333;
+        font-size: 1.5rem;
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
+      /* Contact Icon Colors */
+      .phone-icon {
+        color: #4CAF50;
+      }
+
+      .location-icon {
+        color: #FF9800;
+      }
+
+      /* RTL Adjustments for contact info */
+      [dir="rtl"] .contact-icon {
+        margin-right: 0;
+        margin-left: 0.5rem;
+      }
+
+      [dir="rtl"] .contact-info a {
+        justify-content: flex-end;
+      }
+
+      /* Button Styles */
+      .button {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .primary-btn {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      .primary-btn:hover {
+        background-color: #ff5252;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+      }
+
+      .secondary-btn {
+        background-color: #333;
+        color: white;
+      }
+
+      .secondary-btn:hover {
+        background-color: #555;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .add-to-cart {
+        background-color: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .add-to-cart:hover {
+        background-color: #ff5252;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+      }
+
+      .remove-btn {
+        background: none;
+        border: none;
+        color: #ff6b6b;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .remove-btn:hover {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      .cart-icon {
+        background: none;
+        border: none;
+        color: #333;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .cart-icon:hover {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      .contact-link {
+        background: none;
+        border: none;
+        color: #333;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .contact-link:hover {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      /* Language Dropdown Styles */
+      .language-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        overflow: hidden;
+        z-index: 1000;
+      }
+
+      .language-menu.show {
+        display: block;
+      }
+
+      .language-item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .language-item:hover {
+        background: #f8f9fa;
+      }
+
+      /* Checkout Form Styles */
+      .checkout-form {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+      }
+
+      .checkout-form.active {
+        display: flex;
+      }
+
+      .checkout-modal {
+        background: white;
+        width: 100%;
+        max-width: 600px;
+        margin: auto;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .checkout-modal h2 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #333;
+      }
+
+      .checkout-form-group {
+        margin-bottom: 1rem;
+      }
+
+      .checkout-form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #666;
+      }
+
+      .checkout-form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      .checkout-form-group input:focus {
+        outline: none;
+        border-color: #ff6b6b;
+      }
+
+      .checkout-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+
+      .checkout-actions button {
+        flex: 1;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .checkout-actions button:first-child {
+        margin-right: 1rem;
+      }
+
+      .checkout-actions .cancel-btn {
+        background: #ddd;
+        color: #333;
+      }
+
+      .checkout-actions .submit-btn {
+        background: #ff6b6b;
+        color: white;
+      }
+
+      .checkout-actions button:hover {
+        opacity: 0.9;
+      }
+
+      .checkout-actions button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* Login/Signup Styles */
+      .login-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .login-section h2 {
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .login-section p {
+        color: #666;
+        margin-bottom: 2rem;
+      }
+
+      .divider {
+        position: relative;
+        margin: 1.5rem 0;
+        color: #999;
+      }
+
+      .divider:before,
+      .divider:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 45%;
+        height: 1px;
+        background: #eee;
+      }
+
+      .divider:before {
+        left: 0;
+      }
+
+      .divider:after {
+        right: 0;
+      }
+
+      /* Enhanced Login Styles */
+      .login-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.96);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .login-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 420px;
+        padding: 2.5rem;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .login-header h2 {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .login-header p {
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .login-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .login-btn {
+        padding: 1rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .login-btn.google {
+        background: #4285F4;
+        color: white;
+      }
+
+      .login-btn.facebook {
+        background: #4267B2;
+        color: white;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+        margin: 0 1rem;
+      }
+
+      .email-login {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .email-login input {
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .email-login input:focus {
+        outline: none;
+        border-color: #ff6b6b;
+      }
+
+      .login-btn.email-submit {
+        background: #ff6b6b;
+        color: white;
+        margin-top: 0.5rem;
+      }
+
+      .signup-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .signup-link a {
+        color: #ff6b6b;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .back-btn {
+        display: block;
+        margin: 2rem auto 0;
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      .back-btn:hover {
+        color: #ff6b6b;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Login/Signup Styles */
+      #firebaseui-auth-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .user-menu {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .user-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .login-menu {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+
+      .login-btn {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .login-btn:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+      }
+
+      .login-btn i {
+        font-size: 1.1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1 id="headerTitle">Occasional Gifts</h1>
+        <p id="headerDescription">Beautifully curated gift sets for every occasion - Ramadan, Eid, Valentine's Day, Christmas and more</p>
+        <a href="#categories" class="cta-button" onclick="makeNavFixed()">Shop Now</a>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="nav-links">
+        <ul id="MenuItems">
+          <li><a href="#categories"><i class="fas fa-star icon"></i>Featured Categories</a></li>
+          <li><a href="#products"><i class="fas fa-gift icon"></i>Featured Products</a></li>
+          <li><a href="#footer" class="contact-link"><i class="fas fa-phone icon"></i>Contact Us</a></li>
+        </ul>
+        
+      <div class="nav-icons">
+        <a href="#" class="cart-icon" onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal hidden">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2 id="cartTitle">Shopping Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-body" id="cartItems">
+          <p id="cartEmpty" class="cart-empty">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span id="cartTotalLabel">Subtotal:</span>
+            <span id="cartTotal">$0.00</span>
+          </div>
+          <div class="cart-buttons">
+            <button id="clearCartBtn" onclick="clearCart()">Clear Cart</button>
+            <button id="checkoutBtn" onclick="openCheckoutForm()">Proceed to Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="checkout-form">
+      <div class="checkout-modal">
+        <h2>Checkout</h2>
+        <form id="checkoutForm" action="mailto:mhmdkoussa82@gmail.com" method="POST" enctype="text/plain">
+          <div class="checkout-form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="checkout-form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+          <div class="checkout-form-group">
+            <label for="address">Delivery Address</label>
+            <input type="text" id="address" name="address" required>
+          </div>
+          <div class="checkout-form-group">
+            <label for="notes">Any additional notes?</label>
+            <input type="text" id="notes" name="notes">
+          </div>
+          <div class="checkout-actions">
+            <button type="button" class="cancel-btn" onclick="closeCheckoutForm()">Cancel</button>
+            <button type="submit" class="submit-btn">Place Order</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+
+    
+
+    <!-- User Menu -->
+    <div class="user-menu" style="display: none;">
+      <div class="user-info">
+        <img src="default-avatar.png" alt="User Avatar" class="user-avatar">
+        <span class="user-name"></span>
+      </div>
+      <div class="user-actions">
+        <button onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+
+    
+    <style>
+      /* Login/Signup Styles */
+      #firebaseui-auth-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .user-menu {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .user-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .login-menu {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+
+      .login-btn {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .login-btn:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+      }
+
+      .login-btn i {
+        font-size: 1.1rem;
+      }
+    </style>
+
+   
+
+    <!-- Shop Section -->
+    <div class="shop-section" style="display: none;">
+      <!-- Login/Signup Section -->
+      <div class="login-section">
+        <div class="login-container">
+          <div class="login-header">
+            <h2>Welcome to Gifts By Nisrine</h2>
+            <p>Sign in to access your personalized shopping experience</p>
+          </div>
+          
+          <div class="login-options">
+            <button class="login-btn google" onclick="loginWithGoogle()">
+              <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <button class="login-btn email-submit" onclick="loginWithEmail()">
+              Sign In
+            </button>
+            
+            
+            <p class="signup-link">
+              New to Gifts By Nisrine? <a href="#" onclick="event.preventDefault(); createAccount();">Create an account</a>
+            </p>
+          </div>
+          
+          <button class="back-btn" onclick="hideShopSection()">
+            <i class="fas fa-arrow-left"></i> Back to Home
+          </button>
+        </div>
+      </div>
+
+
+    <!-- User Menu -->
+    <div class="user-menu" style="display: none;">
+      <div class="user-info">
+        <img src="default-avatar.png" alt="User Avatar" class="user-avatar">
+        <span class="user-name"></span>
+      </div>
+      <div class="user-actions">
+        <button onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+
+    
+    <style>
+      /* Shop Section Styles */
+      .shop-section {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        padding-top: 60px;
+      }
+
+      .login-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 2rem;
+      }
+
+      .login-options {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .login-btn {
+        padding: 1rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      .back-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      
+      .back-btn:hover {
+        background: #ff5252;
+        transform: translateX(-50%) translateY(-2px);
+      }
+
+      /* User Menu Styles */
+      .user-menu {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .user-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      /* Section Styles */
+      .featured-categories,
+      .products,
+      .contact {
+        padding: 4rem 0;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        color: #333;
+      }
+
+      .categories-grid,
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    </style>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories" id="categories">
+      <div class="container">
+        <h2><i class="fas fa-star icon"></i>Featured Categories</h2>
+        <div class="category-grid">
+          <div class="category-card">
+            <img src="https://i.postimg.cc/V6ZVk8F9/licensed-image.jpg" alt="Ramadan Gifts" class="category-image" />
+            <div class="category-content">
+              <h3>Ramadan Gifts</h3>
+              <p>Beautifully curated gift sets perfect for Ramadan celebrations and iftar gatherings.</p>
+            </div>
+          </div>
+          <div class="category-card">
+            <img src="https://i.postimg.cc/xjJ2Nxbj/jack-eid-al-fitr-day-event-page-1681747937.png" alt="Eid Gifts" class="category-image" />
+            <div class="category-content">
+              <h3>Eid Gifts</h3>
+              <p>Special gift sets for Eid celebrations, perfect for family and friends.</p>
+            </div>
+          </div>
+          <div class="category-card">
+            <img src="https://i.postimg.cc/dVBPcgg6/simple-happy-valentines-day-celebration-design-1017-29881.avif" alt="Valentine's Gifts" class="category-image" />
+            <div class="category-content">
+              <h3>Valentine's Gifts</h3>
+              <p>Romantic gift sets for your special someone this Valentine's Day.</p>
+            </div>
+          </div>
+          <div class="category-card">
+            <img src="https://i.postimg.cc/BQ9dLq0N/gradient-christmas-tinsel-background-52683-76117.avif" alt="Christmas Gifts" class="category-image" />
+            <div class="category-content">
+              <h3>Christmas Gifts</h3>
+              <p>Luxury gift sets for Christmas celebrations and holiday season.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products" id="products">
+      <div class="container">
+        <h2><i class="fas fa-star icon"></i>Featured Products</h2>
+        <div class="product-grid">
+          <div class="product-card" data-id="1">
+            <img src="images/product1.jpg" alt="Ramadan Gift Box" class="product-image" />
+            <div class="product-content">
+              <h3>Ramadan Gift Box</h3>
+              <div class="price">$49.99</div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <p>Beautifully curated gift sets with traditional Ramadan items.</p>
+              <a href="product.html?id=1" class="add-to-cart">Add to Cart</a>
+            </div>
+          </div>
+          <div class="product-card" data-id="2">
+            <img src="images/product2.jpg" alt="Eid Gift Box" class="product-image" />
+            <div class="product-content">
+              <h3>Eid Gift Box</h3>
+              <div class="price">$59.99</div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>Special gift sets for Eid celebrations, perfect for family and friends.</p>
+              <a href="product.html?id=2" class="add-to-cart">Add to Cart</a>
+            </div>
+          </div>
+          <div class="product-card" data-id="3">
+            <img src="images/product3.jpg" alt="Valentine's Gift Box" class="product-image" />
+            <div class="product-content">
+              <h3>Valentine's Gift Box</h3>
+              <div class="price">$39.99</div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <p>Romantic gift sets for your special someone this Valentine's Day.</p>
+              <a href="product.html?id=3" class="add-to-cart">Add to Cart</a>
+            </div>
+          </div>
+          <div class="product-card" data-id="4">
+            <img src="images/product4.jpg" alt="Christmas Gift Box" class="product-image" />
+            <div class="product-content">
+              <h3>Christmas Gift Box</h3>
+              <div class="price">$69.99</div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>Luxury gift sets for Christmas celebrations and holiday season.</p>
+              <a href="product.html?id=4" class="add-to-cart">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+      <div class="container">
+        <div class="footer-row">
+          <div class="footer-col">
+            <h3>Contact Us</h3>
+            <div class="contact-info">
+              <a href="https://wa.me/96170800137" target="_blank">
+                <i class="fas fa-phone contact-icon phone-icon"></i>
+                <span>Phone: +961 70 800 137</span>
+              </a>
+              <a href="https://wa.me/96176077021" target="_blank">
+                <i class="fas fa-phone contact-icon phone-icon"></i>
+                <span>Phone: +961 76 077 021</span>
+              </a>
+              <a href="https://maps.app.goo.gl/fCCaULZybBxPEd9s5" target="_blank">
+                <i class="fas fa-map-marker-alt contact-icon location-icon"></i>
+                <span>Address: Bourjein, Chouf, Lebanon</span>
+              </a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h3>Follow us</h3>
+            <div class="social-links">
+              <a href="https://www.facebook.com/giftsbynisrine" target="_blank">
+                <i class="fab fa-facebook facebook-icon social-icon"></i>
+                <span>Facebook</span>
+              </a>
+              <a href="https://www.instagram.com/gifts_by_nisrine" target="_blank">
+                <i class="fab fa-instagram instagram-icon social-icon"></i>
+                <span>Instagram</span>
+              </a>
+              <a href="https://www.tiktok.com/@giftsby.nisrine?is_from_webapp=1&sender_device=pc" target="_blank">
+                <i class="fab fa-tiktok tiktok-icon social-icon"></i>
+                <span>TikTok</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <hr class="footer-hr"/>
+        <div class="footer-bottom">
+          <p class="copyright">
+            <i class="fas fa-copyright"></i>
+            <a href="https://rast0fx.github.io/PotrfolioV1/" target="_blank">2025 Mhamad Koussa (rast0fx)</a>
+          </p>
+        </div>
+    </footer>
+
+ 
+
+     
+
+    <script>
+      // Initialize variables
+      let lastScrollTop = 0;
+      let shouldHideHeader = false;
+
+      // Function to hide header
+      function hideHeader() {
+        const header = document.querySelector('.header');
+        if (header) {
+          header.classList.add('hidden');
+        }
+      }
+
+      // Function to show header
+      function showHeader() {
+        const header = document.querySelector('.header');
+        if (header) {
+          header.classList.remove('hidden');
+        }
+      }
+
+      // Function to prevent scrolling
+      function preventScroll() {
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Function to allow scrolling
+      function allowScroll() {
+        document.body.style.overflow = 'auto';
+      }
+
+      // Initialize page
+      function initializePage() {
+        showHeader();
+        preventScroll();
+        
+        // Add event listener for Shop Now button
+        const shopNowBtn = document.querySelector('.cta-button');
+        if (shopNowBtn) {
+          shopNowBtn.addEventListener('click', () => {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+              document.querySelector('.shop-section').style.display = 'block';
+              document.querySelector('.login-section').style.display = 'flex';
+              shouldHideHeader = true;
+              hideHeader();
+              preventScroll();
+            }
+          });
+        }
+
+        // Handle manual scrolling
+        window.addEventListener('scroll', () => {
+          if (!shouldHideHeader) return;
+
+          const header = document.querySelector('.header');
+          const nav = document.querySelector('.main-nav');
+          
+          if (header && nav) {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // If user scrolls down
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 10) {
+              nav.classList.add('fixed');
+              hideHeader();
+              allowScroll();
+            }
+            
+            lastScrollTop = currentScrollTop;
+          }
+        });
+
+        // Reset scroll position and show header on page load
+        window.addEventListener('load', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          showHeader();
+          preventScroll();
+          shouldHideHeader = false;
+          lastScrollTop = 0;
+        });
+
+        // Clean up event listeners
+        window.addEventListener('load', () => {
+          window.removeEventListener('scroll', handleScroll);
+        });
+      }
+
+      // Initialize page when DOM is loaded
+      document.addEventListener('DOMContentLoaded', initializePage);
+
+      // Shopping cart functionality
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Load cart for authenticated user
+      // Removed Firebase references
+
+      function addToCart(product) {
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({ ...product, quantity: 1 });
+        }
+
+        // Update local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update cart in Firestore if user is authenticated
+        // Removed Firebase references
+
+        updateCartCount();
+        showNotification('Product added to cart!');
+      }
+
+      function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+          const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartCount.textContent = totalItems;
+        }
+      }
+
+      function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+      }
+
+      // Initialize cart count
+      updateCartCount();
+
+      // Login functions
+      function loginWithGoogle() {
+        alert('Google login will be implemented');
+      }
+
+      function loginWithFacebook() {
+        alert('Facebook login will be implemented');
+      }
+
+      function loginWithEmail() {
+        alert('Email login will be implemented');
+      }
+
+      function hideShopSection() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (!user) {
+          // Return to login if not authenticated
+          document.querySelector('.shop-section').style.display = 'none';
+          document.querySelector('.login-section').style.display = 'flex';
+        } else {
+          // Show full content if authenticated
+          document.querySelector('.shop-section').style.display = 'none';
+          document.querySelector('.login-section').style.display = 'none';
+        }
+        shouldHideHeader = false;
+        showHeader();
+        document.body.style.overflow = 'auto';
+        document.querySelector('.header').classList.remove('hidden');
+        document.querySelector('.main-nav').classList.remove('fixed');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Initialize content
+      updateContent('en');
+    </script>
+  </body>
+</html>
