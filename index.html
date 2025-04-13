@@ -2138,6 +2138,80 @@
 
       // Initialize content
       updateContent('en');
+
+      // Enhanced Auth System with Cart
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+      function loadUserCart() {
+        if (currentUser) {
+          const userCart = currentUser.cart || [];
+          localStorage.setItem('cart', JSON.stringify(userCart));
+          updateCartCount();
+        }
+      }
+
+      function saveUserCart() {
+        if (currentUser) {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          currentUser.cart = cart;
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          
+          // Update in users array
+          const userIndex = users.findIndex(u => u.email === currentUser.email);
+          if (userIndex !== -1) {
+            users[userIndex] = currentUser;
+            localStorage.setItem('users', JSON.stringify(users));
+          }
+        }
+      }
+
+      function loginWithEmail() {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+          currentUser = user;
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          loadUserCart();
+          updateUI();
+        } else {
+          alert('Invalid credentials');
+        }
+        return false;
+      }
+
+      function createAccount() {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        if (!email || !password) {
+          alert('Please enter both email and password');
+          return false;
+        }
+        
+        if (users.some(u => u.email === email)) {
+          alert('Email already exists');
+          return false;
+        }
+        
+        const newUser = { 
+          email, 
+          password, 
+          name: email.split('@')[0],
+          cart: []
+        };
+        
+        users.push(newUser);
+        currentUser = newUser;
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        localStorage.setItem('cart', JSON.stringify([]));
+        updateUI();
+        return false;
+      }
     </script>
   </body>
 </html>
