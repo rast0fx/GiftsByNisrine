@@ -117,7 +117,7 @@ img {
         filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
         transition: all 0.3s ease;
         margin: 0 auto;
-        border: 3px solid #ff6b6b;
+        
       }
 
       @media (max-width: 768px) {
@@ -169,55 +169,37 @@ img {
 
       /* Hero Navigation */
       .hero-nav {
-        backdrop-filter: blur(10px);
         background: rgba(255,255,255,0.9);
-        padding: 1rem;
+        padding: 1rem 0;
         position: sticky;
         top: 0;
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        z-index: 99;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         border-top: 3px solid #ff6b6b;
       }
-
+      
       .hero-nav ul {
-        list-style: none;
         display: flex;
-        gap: 3rem;
+        justify-content: center;
+        gap: 2rem;
+        list-style: none;
         margin: 0;
         padding: 0;
       }
-
+      
       .hero-nav a {
         color: #333;
         text-decoration: none;
-        font-weight: 500;
-        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
         transition: all 0.3s ease;
-        position: relative;
-        padding: 0.8rem 0;
       }
-
-      .hero-nav a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: #ff6b6b;
-        transition: width 0.3s ease;
-      }
-
-      .hero-nav a:hover::after,
-      .hero-nav a.active::after {
-        width: 100%;
-      }
-
-      .hero-nav a:hover {
-        color: #ff6b6b;
+      
+      .hero-nav a:hover, 
+      .hero-nav a.active {
+        background: #f8f8f8;
+        color: #000;
       }
 
       /* Featured Categories */
@@ -367,7 +349,7 @@ img {
 
       .product-description {
         color: #666;
-        font-weight: bold;
+        font-weight: normal;
         margin-bottom: 1rem;
         line-height: 1.4;
       }
@@ -844,27 +826,16 @@ img {
         background: white;
         border-radius: 8px;
         overflow: hidden;
-        cursor: zoom-in;
-        transition: transform 0.3s ease;
+        cursor: default;
       }
-
+      
       .lightbox-content img {
         width: 100%;
         height: 100%;
         object-fit: contain;
-        transition: transform 0.2s ease;
         user-select: none;
         -webkit-user-drag: none;
-        cursor: grab;
-        position: relative;
-      }
-
-      .lightbox-content.zoomed img {
-        transform: scale(2);
-      }
-
-      .lightbox-content.zoomed img:active {
-        cursor: grabbing;
+        cursor: default;
       }
 
       .lightbox-close {
@@ -1072,61 +1043,6 @@ img {
             lightbox.appendChild(closeBtn);
             lightbox.appendChild(lightboxContent);
 
-            // Desktop zoom functionality
-            let isZoomed = false;
-            let currentX = 0, currentY = 0;
-
-            lightboxImg.addEventListener('click', function(e) {
-              if (e.target === lightboxImg) {
-                isZoomed = !isZoomed;
-                this.classList.toggle('zoomed');
-                
-                // Reset position when zooming out
-                if (!isZoomed) {
-                  currentX = 0;
-                  currentY = 0;
-                  lightboxImg.style.transform = 'scale(1)';
-                } else {
-                  // When zooming in, center the image
-                  const bounds = lightboxContent.getBoundingClientRect();
-                  const imgBounds = lightboxImg.getBoundingClientRect();
-                  currentX = (bounds.width - imgBounds.width) / 2;
-                  currentY = (bounds.height - imgBounds.height) / 2;
-                  lightboxImg.style.transform = `translate(-${currentX}px, -${currentY}px) scale(2)`;
-                }
-              }
-            });
-
-            // Touch events for mobile zoom
-            let pinchStartDistance = 0;
-
-            lightboxImg.addEventListener('touchstart', (e) => {
-              if (e.touches.length === 2) {
-                e.preventDefault();
-                pinchStartDistance = Math.hypot(
-                  e.touches[0].clientX - e.touches[1].clientX,
-                  e.touches[0].clientY - e.touches[1].clientY
-                );
-              }
-            });
-
-            lightboxImg.addEventListener('touchmove', (e) => {
-              if (e.touches.length === 2 && pinchStartDistance !== 0) {
-                e.preventDefault();
-                const currentDistance = Math.hypot(
-                  e.touches[0].clientX - e.touches[1].clientX,
-                  e.touches[0].clientY - e.touches[1].clientY
-                );
-                
-                const scale = Math.max(1, Math.min(3, 1 + (currentDistance - pinchStartDistance) / 100));
-                lightboxImg.style.transform = `scale(${scale})`;
-              }
-            });
-
-            lightboxImg.addEventListener('touchend', () => {
-              pinchStartDistance = 0;
-            });
-
             // Close on click outside
             lightbox.addEventListener('click', (e) => {
               if (e.target === lightbox) {
@@ -1144,16 +1060,10 @@ img {
             // Close when clicking the close button
             closeBtn.addEventListener('click', closeLightbox);
 
-            // Double tap to zoom
-            let lastTapTime = 0;
-            lightboxImg.addEventListener('click', (e) => {
-              if (e.target === lightboxImg) {
-                const now = Date.now();
-                if (now - lastTapTime < 300) {
-                  isZoomed = !isZoomed;
-                  lightboxContent.classList.toggle('zoomed');
-                }
-                lastTapTime = now;
+            // Handle browser back button
+            window.addEventListener('popstate', (e) => {
+              if (lightbox.style.display === 'flex') {
+                closeLightbox();
               }
             });
           });
@@ -1167,13 +1077,6 @@ img {
           // Remove from browser history
           history.back();
         }
-
-        // Handle browser back button
-        window.addEventListener('popstate', (e) => {
-          if (lightbox.style.display === 'flex') {
-            closeLightbox();
-          }
-        });
       });
     </script>
   </head>
@@ -1190,17 +1093,25 @@ img {
                loading="lazy"
                decoding="async">
           <h1 class="hero-title">Gifts by Nisrine</h1>
-          <p class="hero-subtitle">This website is just a virtual showroom. <br> To place an order, <a href="#footer" class="contact-link">contact us.</a></p>
+          <p class="hero-subtitle"This website is just a virtual showroom. <br> To place an order, <a href="#footer" class="contact-link">contact us.</a></p>
         </div>
       </div>
     </section>
+    <div class="hero-nav">
+      
+        <ul>
+          <li><a href="#products" class="active">Products</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+      </div>
     <section class="products">
       <div class="container">
         <h2 class="section-title">Our Products</h2>
         
         <!-- Low Budget Products (14.99$-29.99$) -->
         <div class="product-subsection">
-          <h3 class="subsection-title">Low Budget Products ($14.99 - $29.99)</h3>
+          <h3 class="subsection-title">Low Budget Products ($11.99 - $29.99)</h3>
           <div class="product-grid">
             <div class="product-card">
               <img src="https://i.postimg.cc/4NDWt9bz/0ab74bca-1eb5-45d7-a977-b32307740fb2.jpg" alt="Kinder Gift Set" class="product-image">
@@ -1250,7 +1161,7 @@ img {
 
         <!-- Mid Budget Products (29.99$-49.99$) -->
         <div class="product-subsection">
-          <h3 class="subsection-title">Mid Budget Products ($29.99 - $49.99)</h3>
+          <h3 class="subsection-title">Mid Budget Products ($29.99 - $59.99)</h3>
           <div class="product-grid">
             <div class="product-card">
               <img src="https://i.postimg.cc/CKN7W6yN/9d69d977-a0c3-40af-88d9-a3d0c477e592.jpg" alt="Baby Gift Box" class="product-image">
@@ -1265,7 +1176,7 @@ img {
 
         <!-- High Budget Products (49.99$-69.99$) -->
         <div class="product-subsection">
-          <h3 class="subsection-title">High Budget Products ($49.99 - $69.99)</h3>
+          <h3 class="subsection-title">High Budget Products ($59.99 - $79.99)</h3>
           <div class="product-grid">
             <div class="product-card">
               <img src="https://i.postimg.cc/7Y2VxL8b/a3ed31cf-c3d5-43b2-8aab-b4daa769d897.jpg" alt="Baby Gift Box" class="product-image">
@@ -1320,7 +1231,7 @@ img {
 
           <div id="feedbackSuccess" class="feedback-message success" style="display: none;">
             <i class="fas fa-check-circle"></i>
-            Thank you for your feedback!
+            Thank you for your feedback! We've sent it to WhatsApp and email.
           </div>
 
           <div id="feedbackError" class="feedback-message error" style="display: none;">
@@ -1374,7 +1285,7 @@ img {
 
         <div class="delivery-note">
 
-          <h3><b><font color="red">We deliver to all Lebanon cities. <br>Our delivery fee ranges from $3 to $5.</font></b></h3></b></h3>
+          <h3><b><font color="red">We deliver to all cities across Lebanon, with delivery fees ranging from $3 to $5.</font></b></h3></b></h3>
         </div>
 
         <div class="footer-bottom">
@@ -1385,6 +1296,229 @@ img {
         </div>
     </footer>
 
+    <script>
+      // Language switching functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get language buttons
+        const langEN = document.getElementById('langEN');
+        const langAR = document.getElementById('langAR');
+        
+        // Get saved language preference
+        const savedLang = localStorage.getItem('siteLanguage') || 'en';
+        
+        // Set initial language
+        document.documentElement.lang = savedLang;
+        updateLanguage(savedLang);
+        
+        // Function to update language
+        function updateLanguage(lang) {
+          try {
+            // Update language preference
+            localStorage.setItem('siteLanguage', lang);
+            
+            // Update button states
+            if (langEN) {
+              langEN.classList.remove('active');
+              langAR.classList.remove('active');
+              if (lang === 'en') {
+                langEN.classList.add('active');
+              } else {
+                langAR.classList.add('active');
+              }
+            }
+            
+            // Update text content based on language
+            const translations = {
+              en: {
+                title: "Gifts By Nisrine | With Care",
+                heroTitle: "Gifts by Nisrine",
+                heroSubtitle: "This website is just a virtual showroom. <br> To place an order, contact us.",
+                products: "Our Products",
+                feedback: "Leave a Review",
+                contact: "CONTACT US",
+                follow: "FOLLOW US",
+                name: "Your Name",
+                email: "Email Address",
+                rating: "Rating",
+                message: "Your Review",
+                send: "Send Review",
+                success: "Thank you for your feedback! We've sent it to WhatsApp and email.",
+                error: "There was an error sending your feedback. Please try again.",
+                lowBudget: "Low Budget Products ($14.99 - $29.99)",
+                midBudget: "Mid Budget Products ($29.99 - $49.99)",
+                highBudget: "High Budget Products ($49.99 - $69.99)",
+                productDescriptions: {
+                  "Kinder Gift Set": "A delightful Kinder gift set featuring chocolate eggs, toys, and a beautifully wrapped presentation box perfect for kids.",
+                  "My Way Gift Box": "A sophisticated gift box featuring My Way perfume and accessories, wrapped in elegant packaging with gold accents.",
+                  "Special Gift Box": "A luxurious gift box featuring Ferrero Rocher chocolates, wrapped in elegant yellow flowers and gold accents.",
+                  "212 VIP Gift Set": "An exclusive 212 VIP gift set featuring the signature perfume and matching accessories in an elegant presentation box.",
+                  "Beesline Gift Set": "A premium Beesline gift set including honey, skincare products, and a beautiful presentation box with gold accents.",
+                  "Baby Gift Box": "A charming baby gift box featuring essential baby items, soft toys, and a beautiful presentation with pink accents.",
+                  "Premium Baby Gift Box": "A premium baby gift box featuring high-quality baby essentials, soft toys, and a beautiful presentation with gold accents."
+                },
+                whatsapp: "WhatsApp",
+                phone: "Phone",
+                address: "Address",
+                facebook: "Facebook",
+                instagram: "Instagram",
+                selectRating: "Select Rating",
+                stars: {
+                  5: "⭐⭐⭐⭐⭐ (5/5)",
+                  4: "⭐⭐⭐⭐ (4/5)",
+                  3: "⭐⭐⭐ (3/5)",
+                  2: "⭐⭐ (2/5)",
+                  1: "⭐ (1/5)"
+                }
+              },
+              ar: {
+                title: "هدايا نسرين | مع الحب",
+                heroTitle: "هدايا نسرين",
+                heroSubtitle: "هذا الموقع هو مجرد معرض افتراضي. <br> للطلب، تواصل معنا.",
+                products: "منتجاتنا",
+                feedback: "اترك تعليقاً",
+                contact: "تواصل معنا",
+                follow: "تابعنا",
+                name: "اسمك",
+                email: "عنوان البريد الإلكتروني",
+                rating: "التقييم",
+                message: "تعليقك",
+                send: "إرسال التعليق",
+                success: "شكراً على تعليقك! لقد أرسلناه عبر واتساب والبريد الإلكتروني.",
+                error: "حدث خطأ أثناء إرسال تعليقك. يرجى المحاولة مرة أخرى.",
+                lowBudget: "منتجات منخفضة الميزانية (14.99$ - 29.99$)",
+                midBudget: "منتجات متوسطة الميزانية (29.99$ - 49.99$)",
+                highBudget: "منتجات عالية الميزانية (49.99$ - 69.99$)",
+                productDescriptions: {
+                  "Kinder Gift Set": "مجموعة هدايا Kinder ممتعة تضم بيض شوكولاتة، ألعاب، وصندوق عرض جميل مغلف بشكل رائع مناسب للأطفال.",
+                  "My Way Gift Box": "صندوق هدايا راقي يحتوي على عطر My Way وملحقاته، مغلف في تغليف أنيق مع زخارف ذهبية.",
+                  "Special Gift Box": "صندوق هدايا فاخر يحتوي على شوكولاتة Ferrero Rocher، مغلف في زهور صفراء أنيقة وزخارف ذهبية.",
+                  "212 VIP Gift Set": "مجموعة هدايا 212 VIP الحصرية التي تحتوي على العطر المميز وملحقاته المتطابقة في صندوق عرض أنيق.",
+                  "Beesline Gift Set": "مجموعة هدايا Beesline المتميزة التي تشمل العسل، منتجات العناية بالبشرة، وصندوق عرض جميل مع زخارف ذهبية.",
+                  "Baby Gift Box": "صندوق هدايا الأطفال المميز الذي يحتوي على مستلزمات الأطفال الأساسية، دمى ناعمة، وعرض جميل مع زخارف وردية.",
+                  "Premium Baby Gift Box": "صندوق هدايا الأطفال الفاخر الذي يحتوي على مستلزمات الأطفال عالية الجودة، دمى ناعمة، وعرض جميل مع زخارف ذهبية."
+                },
+                whatsapp: "واتساب",
+                phone: "الهاتف",
+                address: "العنوان",
+                facebook: "فيسبوك",
+                instagram: "إنستغرام",
+                selectRating: "اختر التقييم",
+                stars: {
+                  5: "⭐⭐⭐⭐⭐ (5/5)",
+                  4: "⭐⭐⭐⭐ (4/5)",
+                  3: "⭐⭐⭐ (3/5)",
+                  2: "⭐⭐ (2/5)",
+                  1: "⭐ (1/5)"
+                }
+              }
+            };
+            
+            // Update text content
+            document.title = translations[lang].title;
+            if (document.querySelector('.hero-title')) {
+              document.querySelector('.hero-title').textContent = translations[lang].heroTitle;
+            }
+            if (document.querySelector('.hero-subtitle')) {
+              document.querySelector('.hero-subtitle').innerHTML = translations[lang].heroSubtitle;
+            }
+            if (document.querySelector('.section-title')) {
+              document.querySelector('.section-title').textContent = translations[lang].products;
+            }
+            if (document.querySelector('#feedback .section-title')) {
+              document.querySelector('#feedback .section-title').textContent = translations[lang].feedback;
+            }
+            
+            // Update product subsection titles
+            document.querySelectorAll('.subsection-title').forEach((title, index) => {
+              const budgetRanges = [translations[lang].lowBudget, translations[lang].midBudget, translations[lang].highBudget];
+              title.textContent = budgetRanges[index];
+            });
+            
+            // Update product descriptions
+            const products = {
+              "Kinder Gift Set": document.querySelector('.product-title:contains("Kinder Gift Set") + .product-description'),
+              "My Way Gift Box": document.querySelector('.product-title:contains("My Way Gift Box") + .product-description'),
+              "Special Gift Box": document.querySelector('.product-title:contains("Special Gift Box") + .product-description'),
+              "212 VIP Gift Set": document.querySelector('.product-title:contains("212 VIP Gift Set") + .product-description'),
+              "Beesline Gift Set": document.querySelector('.product-title:contains("Beesline Gift Set") + .product-description'),
+              "Baby Gift Box": document.querySelector('.product-title:contains("Baby Gift Box") + .product-description')
+            };
+            
+            Object.entries(products).forEach(([key, element]) => {
+              if (element) {
+                element.textContent = translations[lang].productDescriptions[key];
+              }
+            });
+            
+            // Update form labels and buttons
+            if (document.querySelector('label[for="name"]')) {
+              document.querySelector('label[for="name"]').textContent = translations[lang].name;
+            }
+            if (document.querySelector('label[for="email"]')) {
+              document.querySelector('label[for="email"]').textContent = translations[lang].email;
+            }
+            if (document.querySelector('label[for="rating"]')) {
+              document.querySelector('label[for="rating"]').textContent = translations[lang].rating;
+            }
+            if (document.querySelector('label[for="message"]')) {
+              document.querySelector('label[for="message"]').textContent = translations[lang].message;
+            }
+            if (document.querySelector('.primary-btn')) {
+              document.querySelector('.primary-btn').textContent = translations[lang].send;
+            }
+            
+            // Update rating options
+            const ratingOptions = document.querySelectorAll('#rating option');
+            ratingOptions[0].textContent = translations[lang].selectRating;
+            for (let i = 1; i < ratingOptions.length; i++) {
+              ratingOptions[i].textContent = translations[lang].stars[i];
+            }
+            
+            // Update feedback messages
+            if (document.querySelector('#feedbackSuccess')) {
+              document.querySelector('#feedbackSuccess').querySelector('i').nextSibling.textContent = translations[lang].success;
+            }
+            if (document.querySelector('#feedbackError')) {
+              document.querySelector('#feedbackError').querySelector('i').nextSibling.textContent = translations[lang].error;
+            }
+            
+            // Update footer text
+            if (document.querySelector('.footer-section h2')) {
+              document.querySelector('.footer-section h2').textContent = translations[lang].contact;
+            }
+            if (document.querySelector('.footer-section:last-child h2')) {
+              document.querySelector('.footer-section:last-child h2').textContent = translations[lang].follow;
+            }
+            
+            // Update social media links
+            document.querySelectorAll('.social-links a span').forEach((span, index) => {
+              const socialMedia = [translations[lang].facebook, translations[lang].instagram];
+              span.textContent = socialMedia[index];
+            });
+            
+            // Update contact info
+            document.querySelectorAll('.contact-info a span').forEach((span, index) => {
+              const contactInfo = [translations[lang].phone, translations[lang].phone, translations[lang].address];
+              span.textContent = contactInfo[index];
+            });
+            
+            // Update navigation menu
+            document.querySelectorAll('.hero-nav a').forEach((link, index) => {
+              const menuItems = [translations[lang].products, translations[lang].feedback];
+              link.textContent = menuItems[index];
+            });
+          } catch (error) {
+            console.error('Language update error:', error);
+          }
+        }
+        
+        // Add click event listeners
+        if (langEN) {
+          langEN.addEventListener('click', () => updateLanguage('en'));
+          langAR.addEventListener('click', () => updateLanguage('ar'));
+        }
+      });
+    </script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const feedbackForm = document.getElementById('feedbackForm');
@@ -1445,6 +1579,15 @@ img {
               feedbackError.style.display = 'none';
             }, 5000);
           }
+        });
+      });
+    </script>
+    <script>
+      // Smooth scrolling for contact link
+      document.querySelector('.contact-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#footer').scrollIntoView({
+          behavior: 'smooth'
         });
       });
     </script>
