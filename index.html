@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>Gifts By Nisrine | With Care</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -12,6 +12,55 @@
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/Yq1WgYDB/logo-1.png">
 
     <style>
+      /* Responsive font sizing */
+body {
+    font-size: clamp(14px, 2vw, 18px);
+}
+
+/* Responsive container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Make images responsive */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Update hero section */
+.hero {
+    padding: clamp(2rem, 5vw, 4rem) 0;
+    height: clamp(50vh, 60vh, 70vh);
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* Add responsive section titles */
+.section-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+/* Add responsive product grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* Add responsive footer */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: clamp(2rem, 5vw, 4rem);
+}
       /* Modern Reset */
       * {
         margin: 0;
@@ -800,6 +849,7 @@
         border-radius: 8px;
         overflow: hidden;
         cursor: zoom-in;
+        transition: transform 0.3s ease;
       }
 
       .lightbox-content img {
@@ -807,10 +857,18 @@
         height: 100%;
         object-fit: contain;
         transition: transform 0.3s ease;
+        user-select: none;
+        -webkit-user-drag: none;
+        cursor: grab;
+        position: relative;
       }
 
       .lightbox-content.zoomed img {
         transform: scale(2);
+      }
+
+      .lightbox-content.zoomed img:active {
+        cursor: grabbing;
       }
 
       .lightbox-close {
@@ -818,17 +876,34 @@
         top: 1rem;
         right: 1rem;
         color: white;
-        font-size: 2rem;
+        font-size: 2.5rem;
         cursor: pointer;
         z-index: 10;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .lightbox-close:hover {
+        background: rgba(0, 0, 0, 0.4);
+        transform: scale(1.1);
+      }
+
+      /* Mobile-specific styles */
+      @media (max-width: 768px) {
+        .lightbox-close {
+          font-size: 3rem;
+          width: 50px;
+          height: 50px;
+        }
       }
     </style>
     <script>
-      // Prevent jumping to footer on page load
-      if (window.location.hash === '#footer') {
-        history.replaceState(null, null, window.location.pathname);
-      }
-
       // Lightbox functionality
       document.addEventListener('DOMContentLoaded', function() {
         const lightbox = document.createElement('div');
@@ -838,8 +913,12 @@
         const productImages = document.querySelectorAll('.product-image');
 
         productImages.forEach(img => {
-          img.addEventListener('click', function() {
+          img.addEventListener('click', function(e) {
+            e.preventDefault();
             lightbox.style.display = 'flex';
+
+            // Add to browser history
+            history.pushState({lightbox: true}, '', '#lightbox');
 
             const lightboxContent = document.createElement('div');
             lightboxContent.className = 'lightbox-content';
@@ -852,30 +931,169 @@
             closeBtn.innerHTML = '&times;';
 
             lightboxContent.appendChild(lightboxImg);
-            lightbox.appendChild(lightboxContent);
             lightbox.appendChild(closeBtn);
+            lightbox.appendChild(lightboxContent);
 
             // Zoom functionality
             let isZoomed = false;
-            lightboxContent.addEventListener('click', function() {
-              isZoomed = !isZoomed;
-              this.classList.toggle('zoomed');
+            let isDragging = false;
+            let startX, startY;
+            let currentX = 0, currentY = 0;
+
+            lightboxContent.addEventListener('click', function(e) {
+              if (e.target === lightboxImg) {
+                isZoomed = !isZoomed;
+                this.classList.toggle('zoomed');
+                
+                // Reset position when zooming out
+                if (!isZoomed) {
+                  currentX = 0;
+                  currentY = 0;
+                  lightboxImg.style.transform = 'scale(1)';
+                }
+              }
             });
 
-            // Close lightbox
-            closeBtn.addEventListener('click', function() {
-              lightbox.style.display = 'none';
-              lightbox.innerHTML = '';
+            // Desktop drag functionality
+            lightboxImg.addEventListener('mousedown', (e) => {
+              if (!isZoomed) return;
+              e.preventDefault();
+              isDragging = true;
+              startX = e.clientX;
+              startY = e.clientY;
+              lightboxImg.style.cursor = 'grabbing';
+            });
+
+            lightboxImg.addEventListener('mousemove', (e) => {
+              if (!isDragging || !isZoomed) return;
+              e.preventDefault();
+              
+              const deltaX = e.clientX - startX;
+              const deltaY = e.clientY - startY;
+              
+              currentX += deltaX;
+              currentY += deltaY;
+              
+              // Limit movement to stay within bounds
+              const bounds = lightboxContent.getBoundingClientRect();
+              const imgBounds = lightboxImg.getBoundingClientRect();
+              
+              // Calculate maximum movement limits
+              const maxX = Math.max(0, imgBounds.width - bounds.width);
+              const maxY = Math.max(0, imgBounds.height - bounds.height);
+              
+              currentX = Math.max(0, Math.min(currentX, maxX));
+              currentY = Math.max(0, Math.min(currentY, maxY));
+              
+              lightboxImg.style.transform = `translate(-${currentX}px, -${currentY}px) scale(${isZoomed ? 2 : 1})`;
+              
+              startX = e.clientX;
+              startY = e.clientY;
+            });
+
+            lightboxImg.addEventListener('mouseup', () => {
+              isDragging = false;
+              lightboxImg.style.cursor = 'grab';
+            });
+
+            lightboxImg.addEventListener('mouseleave', () => {
+              isDragging = false;
+              lightboxImg.style.cursor = 'grab';
+            });
+
+            // Touch events for mobile
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            lightboxImg.addEventListener('touchstart', (e) => {
+              if (!isZoomed) return;
+              e.preventDefault();
+              
+              const touch = e.touches[0];
+              touchStartX = touch.clientX;
+              touchStartY = touch.clientY;
+            });
+
+            lightboxImg.addEventListener('touchmove', (e) => {
+              if (!isZoomed) return;
+              e.preventDefault();
+              
+              const touch = e.touches[0];
+              const deltaX = touch.clientX - touchStartX;
+              const deltaY = touch.clientY - touchStartY;
+              
+              currentX += deltaX;
+              currentY += deltaY;
+              
+              // Limit movement to stay within bounds
+              const bounds = lightboxContent.getBoundingClientRect();
+              const imgBounds = lightboxImg.getBoundingClientRect();
+              
+              // Calculate maximum movement limits
+              const maxX = Math.max(0, imgBounds.width - bounds.width);
+              const maxY = Math.max(0, imgBounds.height - bounds.height);
+              
+              currentX = Math.max(0, Math.min(currentX, maxX));
+              currentY = Math.max(0, Math.min(currentY, maxY));
+              
+              lightboxImg.style.transform = `translate(-${currentX}px, -${currentY}px) scale(${isZoomed ? 2 : 1})`;
+              
+              touchStartX = touch.clientX;
+              touchStartY = touch.clientY;
+            });
+
+            lightboxImg.addEventListener('touchend', () => {
+              // Reset touch positions
+              touchStartX = 0;
+              touchStartY = 0;
+            });
+
+            // Close on click outside
+            lightbox.addEventListener('click', (e) => {
+              if (e.target === lightbox) {
+                closeLightbox();
+              }
             });
 
             // Close on escape key
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', (e) => {
               if (e.key === 'Escape') {
-                lightbox.style.display = 'none';
-                lightbox.innerHTML = '';
+                closeLightbox();
+              }
+            });
+
+            // Close when clicking the close button
+            closeBtn.addEventListener('click', closeLightbox);
+
+            // Double tap to zoom
+            let lastTapTime = 0;
+            lightboxImg.addEventListener('click', (e) => {
+              if (e.target === lightboxImg) {
+                const now = Date.now();
+                if (now - lastTapTime < 300) {
+                  isZoomed = !isZoomed;
+                  lightboxContent.classList.toggle('zoomed');
+                }
+                lastTapTime = now;
               }
             });
           });
+        });
+
+        // Close lightbox function
+        function closeLightbox() {
+          lightbox.style.display = 'none';
+          lightbox.innerHTML = '';
+          
+          // Remove from browser history
+          history.back();
+        }
+
+        // Handle browser back button
+        window.addEventListener('popstate', (e) => {
+          if (lightbox.style.display === 'flex') {
+            closeLightbox();
+          }
         });
       });
     </script>
@@ -1026,7 +1244,7 @@
 
         <div class="delivery-note">
 
-          <h3><b><font color="red">We deliver to all Lebanon cities. <br>Our delivery fee ranges from $3 to $5.</font></h3></b></h3>
+          <h3><b><font color="red">We deliver to all Lebanon cities. <br>Our delivery fee ranges from $3 to $5.</font></b></h3></b></h3>
         </div>
 
         <div class="footer-bottom">
