@@ -49,8 +49,6 @@
         z-index: 1;
       }
 
-
-
       .hero-content {
         position: relative;
         z-index: 2;
@@ -86,8 +84,6 @@
           height: 120px;
         }
       }
-
-      
 
       .hero-title {
         font-size: 3.5rem;
@@ -339,6 +335,36 @@
         font-size: 1rem;
         transition: all 0.3s ease;
         align-self: flex-start;
+      }
+
+      /* Product Subsections */
+      .product-subsection {
+        margin-bottom: 4rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
+
+      .product-subsection:last-child {
+        border-bottom: none;
+      }
+
+      .subsection-title {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: #333;
+        position: relative;
+      }
+
+      .subsection-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
       }
 
       /* Footer */
@@ -874,62 +900,83 @@
     <section class="products">
       <div class="container">
         <h2 class="section-title">Our Products</h2>
-        <div class="product-grid">
-          <div class="product-card">
-            <img src="https://i.postimg.cc/Jh44QGRh/18b9c265-45a8-41ae-b932-8fd6af2a376a.jpg" alt="Special Gift Box" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">Special Gift Box</h3>
-              <p class="product-price">$18</p>
-              <p class="product-description">A luxurious gift box featuring Ferrero Rocher chocolates, wrapped in elegant yellow flowers and gold accents.</p>
+        
+        <!-- Low Budget Products (14.99$-29.99$) -->
+        <div class="product-subsection">
+          <h3 class="subsection-title">Low Budget Products ($14.99 - $29.99)</h3>
+          <div class="product-grid">
+            <div class="product-card">
+              <img src="https://i.postimg.cc/4NDWt9bz/0ab74bca-1eb5-45d7-a977-b32307740fb2.jpg" alt="Kinder Gift Set" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">Kinder Gift Set</h3>
+                <p class="product-price">$17</p>
+                <p class="product-description">A delightful Kinder gift set featuring chocolate eggs, toys, and a beautifully wrapped presentation box perfect for kids.</p>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="https://i.postimg.cc/T3bHH9Y7/f7f223e8-fc4c-4059-87c3-d72ce447621d.jpg" alt="My Way Gift Box" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">My Way Gift Box</h3>
+                <p class="product-price">$17</p>
+                <p class="product-description">A sophisticated gift box featuring My Way perfume and accessories, wrapped in elegant packaging with gold accents.</p>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="https://i.postimg.cc/Jh44QGRh/18b9c265-45a8-41ae-b932-8fd6af2a376a.jpg" alt="Special Gift Box" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">Special Gift Box</h3>
+                <p class="product-price">$18</p>
+                <p class="product-description">A luxurious gift box featuring Ferrero Rocher chocolates, wrapped in elegant yellow flowers and gold accents.</p>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="https://i.postimg.cc/5yGnsYcW/8e9adb84-883a-498f-a1cd-48dd4fe486a9.jpg" alt="212 VIP Gift Set" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">212 VIP Gift Set</h3>
+                <p class="product-price">$18</p>
+                <p class="product-description">An exclusive 212 VIP gift set featuring the signature perfume and matching accessories in an elegant presentation box.</p>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="https://i.postimg.cc/cCJb9Grw/acb50d80-9cd9-4c14-8951-86e9b6d806e3.jpg" alt="Beesline Gift Set" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">Beesline Gift Set</h3>
+                <p class="product-price">$20</p>
+                <p class="product-description">A premium Beesline gift set including honey, skincare products, and a beautiful presentation box with gold accents.</p>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
 
+        <!-- Mid Budget Products (29.99$-49.99$) -->
+        <div class="product-subsection">
+          <h3 class="subsection-title">Mid Budget Products ($29.99 - $49.99)</h3>
+          <div class="product-grid">
+            <div class="product-card">
+              <img src="https://i.postimg.cc/CKN7W6yN/9d69d977-a0c3-40af-88d9-a3d0c477e592.jpg" alt="Baby Gift Box" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">Baby Gift Box</h3>
+                <p class="product-price">$45</p>
+                <p class="product-description">A charming baby gift box featuring essential baby items, soft toys, and a beautiful presentation with pink accents.</p>
+              </div>
             </div>
           </div>
-          <div class="product-card">
-            <img src="https://i.postimg.cc/cCJb9Grw/acb50d80-9cd9-4c14-8951-86e9b6d806e3.jpg" alt="Beesline Gift Set" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">Beesline Gift Set</h3>
-              <p class="product-price">$20</p>
-              <p class="product-description">A premium Beesline gift set including honey, skincare products, and a beautiful presentation box with gold accents.</p>
-            </div>
-          </div>
-          <div class="product-card">
-            <img src="https://i.postimg.cc/T3bHH9Y7/f7f223e8-fc4c-4059-87c3-d72ce447621d.jpg" alt="My Way Gift Box" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">My Way Gift Box</h3>
-              <p class="product-price">$17</p>
-              <p class="product-description">A sophisticated gift box featuring My Way perfume and accessories, wrapped in elegant packaging with gold accents.</p>
-            </div>
-          </div>
-          <div class="product-card">
-            <img src="https://i.postimg.cc/5yGnsYcW/8e9adb84-883a-498f-a1cd-48dd4fe486a9.jpg" alt="212 VIP Gift Set" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">212 VIP Gift Set</h3>
-              <p class="product-price">$18</p>
-              <p class="product-description">An exclusive 212 VIP gift set featuring the signature perfume and matching accessories in an elegant presentation box.</p>
-            </div>
-          </div>
-          <div class="product-card">
-            <img src="https://i.postimg.cc/4NDWt9bz/0ab74bca-1eb5-45d7-a977-b32307740fb2.jpg" alt="Kinder Gift Set" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">Kinder Gift Set</h3>
-              <p class="product-price">$17</p>
-              <p class="product-description">A delightful Kinder gift set featuring chocolate eggs, toys, and a beautifully wrapped presentation box perfect for kids.</p>
-            </div>
-          </div>
-          <div class="product-card">
-            <img src="https://i.postimg.cc/CKN7W6yN/9d69d977-a0c3-40af-88d9-a3d0c477e592.jpg" alt="Baby Gift Box" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">Baby Gift Box</h3>
-              <p class="product-price">$45</p>
-              <p class="product-description">A charming baby gift box featuring essential baby items, soft toys, and a beautiful presentation with pink accents.</p>
-            </div>
-          </div>
-          <div class="product-card">
-            <img src="https://i.postimg.cc/7Y2VxL8b/a3ed31cf-c3d5-43b2-8aab-b4daa769d897.jpg" alt="Baby Gift Box" class="product-image">
-            <div class="product-content">
-              <h3 class="product-title">Baby Gift Box</h3>
-              <p class="product-price">$55</p>
-              <p class="product-description">A premium baby gift box featuring high-quality baby essentials, soft toys, and a beautiful presentation with gold accents.</p>
+        </div>
+
+        <!-- High Budget Products (49.99$-69.99$) -->
+        <div class="product-subsection">
+          <h3 class="subsection-title">High Budget Products ($49.99 - $69.99)</h3>
+          <div class="product-grid">
+            <div class="product-card">
+              <img src="https://i.postimg.cc/7Y2VxL8b/a3ed31cf-c3d5-43b2-8aab-b4daa769d897.jpg" alt="Baby Gift Box" class="product-image">
+              <div class="product-content">
+                <h3 class="product-title">Baby Gift Box</h3>
+                <p class="product-price">$55</p>
+                <p class="product-description">A premium baby gift box featuring high-quality baby essentials, soft toys, and a beautiful presentation with gold accents.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -985,7 +1032,7 @@
         <div class="footer-bottom">
           <p class="copyright">
             <i class="fas fa-copyright"></i>
-            <a href="https://rast0fx.github.io/PotrfolioV1/" target="_blank">2025 Mhamad Koussa (rast0fx)</a>
+            <a href="https://rast0fx.github.io/Portfolio/" target="_blank">2025 Mhamad Koussa (rast0fx)</a>
           </p>
         </div>
     </footer>
