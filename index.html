@@ -1319,8 +1319,8 @@ img {
             </div>
 
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required>
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required>
             </div>
 
             <div class="form-group">
@@ -1347,7 +1347,7 @@ img {
 
           <div id="feedbackSuccess" class="feedback-message success" style="display: none;">
             <i class="fas fa-check-circle"></i>
-            Thank you for your feedback! We've sent it to WhatsApp and email.
+            Thank you for your feedback! 
           </div>
 
           <div id="feedbackError" class="feedback-message error" style="display: none;">
@@ -1496,14 +1496,14 @@ img {
             const formData = new FormData(this);
             const data = {
               name: formData.get('name'),
-              email: formData.get('email'),
+              phone: formData.get('phone'),
               rating: formData.get('rating'),
               message: formData.get('message'),
               timestamp: new Date().toISOString()
             };
 
             // Format the message
-            const formattedMessage = `New Review:\n\nName: ${data.name}\nEmail: ${data.email}\nRating: ${data.rating}/5\n\nMessage:\n${data.message}`;
+            const formattedMessage = `New Review:\n\nName: ${data.name}\nPhone: ${data.phone}\nRating: ${data.rating}/5\n\nMessage:\n${data.message}`;
 
             
 
